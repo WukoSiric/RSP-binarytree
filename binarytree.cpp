@@ -44,24 +44,25 @@ public:
         }
     }
 
-    void in_order(BinaryTree * node) {
-        if (node != NULL) {
-            in_order(node->left);
-            std::cout << node->item << std::endl;
-            in_order(node->right);
+    void inorder(BinaryTree * node) {
+        if (node == NULL) {
+            return;
         }
-    }
 
-    void pre_order(BinaryTree * node) {
-        if (node != NULL) {
-            std::cout << node->item << std::endl;
-            in_order(node->left);
-            in_order(node->right);
-        }
+        this->inorder(node->left);
+        std::cout << node->item << " ";
+        this->inorder(node->right);
     }
 };
 
 int main() {
-
+    BinaryTree * tree = new BinaryTree(10);
+    tree->insert(tree, 9, NULL);
+    tree->insert(tree, 8, NULL);
+    tree->insert(tree, 7, NULL);
+    tree->insert(tree, 6, NULL);
+    
+    // Print tree
+    tree->inorder(tree);
     return 0;
 }
