@@ -10,6 +10,22 @@ public:
         this->item = item;
     }
 
+    BinaryTree * search(BinaryTree * node, int item) {
+        if (node == NULL) {
+            return NULL;
+        }
+
+        if (node->item == item) {
+            return node;
+        }
+
+        if (item < node->item) {
+            return this->search(node->left, item); 
+        } else {
+            return this->search(node->right, item);
+        }
+    }
+
     void in_order(BinaryTree * node) {
         if (node != NULL) {
             in_order(node->left);
