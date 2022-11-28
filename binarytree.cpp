@@ -5,6 +5,15 @@ class BinaryTree {
     BinaryTree * parent = NULL;
     BinaryTree * left = NULL;
     BinaryTree * right = NULL;
+
+    BinaryTree * find_min(BinaryTree * node) {
+        if (node == NULL) return(NULL);
+
+        if (node->left == NULL) {
+            return node;
+        }
+        return find_min(node->left);
+    }
 public:
     BinaryTree(int item) {
         this->item = item;
@@ -25,6 +34,34 @@ public:
             this->insert(&(*node)->left, item, *node);
         } else {
             this->insert(&(*node)->right, item, *node);
+        }
+    }
+
+    void del(BinaryTree ** node, int item) {
+        BinaryTree * pointer; 
+
+        if (*node == NULL) {
+            return;
+        }
+
+        if (item < (*node)->item) {
+            this->del(&(*node)->left, item);
+        } else if (item > (*node)->item) {
+            this->del(&(*node)->right, item);
+        } else {
+            if ((*node)->right == NULL) {
+                pointer = *node;
+                *node = (*node)->left;
+                delete pointer;
+            } else if ((*node)->left == NULL) {
+                pointer = *node;
+                *node = (*node)->right;
+                delete pointer;
+            } else {
+                pointer = this->find_min((*node)->right);
+                (*node)->item = pointer->item;
+                this->del(&(*node)->right, pointer->item);
+            }
         }
     }
 
@@ -63,6 +100,13 @@ int main() {
     tree->insert(&tree, 6, NULL);
 
     // Print tree
+    tree->inorder(tree);
+
+    // Delete node
+    tree->del(&tree, 8);
+
+    //Print tree
+    std::cout << std::endl;
     tree->inorder(tree);
     return 0;
 }
