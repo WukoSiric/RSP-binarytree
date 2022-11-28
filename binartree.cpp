@@ -10,6 +10,24 @@ public:
         this->item = item;
     }
 
+    void insert(BinaryTree * node, int item, BinaryTree * parent) {
+        BinaryTree * pointer; 
+
+        if (node == NULL) {
+            pointer = new BinaryTree(item); 
+            pointer->left = pointer->right = NULL;
+            pointer->parent = parent; 
+            node = pointer; 
+            return;
+        }
+
+        if (item < node->item) {
+            this->insert(node->left, item, node);
+        } else {
+            this->insert(node->right, item, node);
+        }
+    }
+
     BinaryTree * search(BinaryTree * node, int item) {
         if (node == NULL) {
             return NULL;
