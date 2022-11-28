@@ -10,21 +10,21 @@ public:
         this->item = item;
     }
 
-    void insert(BinaryTree * node, int item, BinaryTree * parent) {
+    void insert(BinaryTree ** node, int item, BinaryTree * parent) {
         BinaryTree * pointer; 
 
-        if (node == NULL) {
+        if (*node == NULL) {
             pointer = new BinaryTree(item); 
             pointer->left = pointer->right = NULL;
             pointer->parent = parent; 
-            node = pointer; 
+            *node = pointer; 
             return;
         }
 
-        if (item < node->item) {
-            this->insert(node->left, item, node);
+        if (item < (*node)->item) {
+            this->insert(&(*node)->left, item, *node);
         } else {
-            this->insert(node->right, item, node);
+            this->insert(&(*node)->right, item, *node);
         }
     }
 
@@ -57,11 +57,11 @@ public:
 
 int main() {
     BinaryTree * tree = new BinaryTree(10);
-    tree->insert(tree, 9, NULL);
-    tree->insert(tree, 8, NULL);
-    tree->insert(tree, 7, NULL);
-    tree->insert(tree, 6, NULL);
-    
+    tree->insert(&tree, 9, NULL);
+    tree->insert(&tree, 8, NULL);
+    tree->insert(&tree, 7, NULL);
+    tree->insert(&tree, 6, NULL);
+
     // Print tree
     tree->inorder(tree);
     return 0;
