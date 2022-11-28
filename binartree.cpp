@@ -9,6 +9,22 @@ public:
     BinaryTree(int item) {
         this->item = item;
     }
+
+    void in_order(BinaryTree * node) {
+        if (node != NULL) {
+            in_order(node->left);
+            std::cout << node->item << std::endl;
+            in_order(node->right);
+        }
+    }
+
+    void pre_order(BinaryTree * node) {
+        if (node != NULL) {
+            std::cout << node->item << std::endl;
+            in_order(node->left);
+            in_order(node->right);
+        }
+    }
 };
 
 int main() {
